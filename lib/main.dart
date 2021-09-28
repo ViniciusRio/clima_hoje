@@ -33,7 +33,6 @@ class _ClimaHoje extends State<ClimaHoje> {
   @override
   Widget build(BuildContext context) {
 
-
     return MaterialApp(
       title: 'Clima Hoje',
       home: Scaffold(
@@ -48,9 +47,44 @@ class _ClimaHoje extends State<ClimaHoje> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                      children: const [
-                        Icon(Icons.circle, color: Colors.blue),
-                        Text('Ensolarado')
+                      children: [
+                        Image.network(
+                            FutureBuilder<Weather>(
+                              future: futureWeather,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  List icon = [
+                                    {"icon": snapshot.data!.icon}
+
+                                  ];
+
+                                  return Text(icon[0]['icon'].toString());
+                                } else if (snapshot.hasError) {
+                                  return Text('error');
+                                }
+                                return Text('error two');
+
+                              },
+                            ).toString()
+                        ),
+                        FutureBuilder<Weather>(
+                          future: futureWeather,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List dateWeatherDescriptions = [
+                                {"weatherDescriptions": snapshot.data!.weatherDescriptions}
+
+                              ];
+
+                              return Text(dateWeatherDescriptions[0]['weatherDescriptions'].toString());
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+
+                            // By default, show a loading spinner.
+                            return const CircularProgressIndicator();
+                          },
+                        )
                       ],
                     ),
                   ],
@@ -111,15 +145,49 @@ class _ClimaHoje extends State<ClimaHoje> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
-                    children: const [
+                    children: [
                       Text('Sensação Térmica'),
-                      Text('40°')
+                      FutureBuilder<Weather>(
+                        future: futureWeather,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List dateFeelslike = [
+                              {"feelslike": snapshot.data!.feelslike}
+
+                            ];
+
+                            return Text(dateFeelslike[0]['feelslike'].toString() + '°');
+                          } else if (snapshot.hasError) {
+                            return Text('${snapshot.error}');
+                          }
+
+                          // By default, show a loading spinner.
+                          return const CircularProgressIndicator();
+                        },
+                      )
                     ],
                   ),
                   Column(
-                    children: const [
+                    children: [
                       Text('Umidade'),
-                      Text('86%')
+                      FutureBuilder<Weather>(
+                        future: futureWeather,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List dateHumidity = [
+                              {"humidity": snapshot.data!.humidity}
+
+                            ];
+
+                            return Text(dateHumidity[0]['humidity'].toString());
+                          } else if (snapshot.hasError) {
+                            return Text('${snapshot.error}');
+                          }
+
+                          // By default, show a loading spinner.
+                          return const CircularProgressIndicator();
+                        },
+                      )
                     ],
                   )
                 ],
