@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-Future<Weather> fetchWeather() async{
+Future<Weather> fetchWeather() async {
+  final apiKey = dotenv.env['API_KEY'];
   final response = await http.get(Uri.parse(
-      'http://api.weatherstack.com/current?access_key=8ef49646c8b26fcce95334457de54c51&query=New%20York'
+      'http://api.weatherstack.com/current?access_key=$apiKey&query=New%20York'
   ));
 
   if (response.statusCode == 200) {
