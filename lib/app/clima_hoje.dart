@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ClimaHoje extends StatefulWidget {
-  ClimaHoje({Key? key}) : super(key: key);
+  const ClimaHoje({Key? key}) : super(key: key);
 
   @override
   _ClimaHoje createState() => _ClimaHoje();
@@ -54,8 +54,7 @@ class _ClimaHoje extends State<ClimaHoje> {
                         Image.network(dataWeather[0]['iconURL']),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
-                          child:
-                          Text(dataWeather[0]['weatherDescriptions']),
+                          child: Text(dataWeather[0]['weatherDescriptions']),
                         ),
                         const SizedBox(
                           height: 10,
@@ -63,11 +62,10 @@ class _ClimaHoje extends State<ClimaHoje> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(dataWeather[0]['temperature'].toString() + '°'),
-                            const SizedBox(
-                              width: 5
-                            ),
-                            Text(dataWeather[0]['city'].toString())
+                            Text(
+                                dataWeather[0]['temperature'].toString() + '°'),
+                            const SizedBox(width: 5),
+                            Text(dataWeather[0]['city'].toString()),
                           ],
                         ),
                         const SizedBox(
@@ -79,14 +77,15 @@ class _ClimaHoje extends State<ClimaHoje> {
                             Column(
                               children: [
                                 const Text('Sensação Térmica'),
-                                Text(dataWeather[0]['feelslike'].toString() + '°'),
+                                Text(dataWeather[0]['feelslike'].toString() +
+                                    '°'),
                               ],
                             ),
                             Column(
                               children: [
                                 const Text('Umidade'),
-                                Text(dataWeather[0]['humidity'].toString() + '%')
-
+                                Text(
+                                    dataWeather[0]['humidity'].toString() + '%')
                               ],
                             )
                           ],
